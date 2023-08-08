@@ -1,6 +1,8 @@
 package com.margic.lookup;
 
 
+import java.util.Properties;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -26,21 +28,27 @@ public class App {
 
         // create the Options
         Options options = new Options();
-        options.addOption("a", "all", false, "do not hide entries starting with .");
-
+        options.addOption("g", "generate", true, "Stream mock lookup data");
+    
         try {
             // parse the command line arguments
-            CommandLine line = parser.parse(options, args);
+            CommandLine cli = parser.parse(options, args);
 
             // validate that block-size has been set
-            if (line.hasOption("a")) {
+            if (cli.hasOption("g")) {
                 // print the value of block-size
-                log.info(line.getOptionValue("a"));
+                log.info("Running in generate mode");
+                String generateCount = cli.getOptionValue("g");
+                log.info("Generating {} records", generateCount);
+                Properties props = Config.loadConfig("app.properties");
+                Generate gen = new Generate(props);
+                gen.produce();
+            } else {
+                log.info("Running in service mode");
             }
-        } catch (ParseException exp) {
+        } catch (Exception exp) {
             log.error("Unexpected exception", exp);
         }
-
     }
 
     static Topology buildTopology(String inputTopic, String outputTopic) {
@@ -51,5 +59,7 @@ public class App {
                 .to(outputTopic, Produced.with(stringSerde, stringSerde));
         return builder.build();
     }
-
 }
+
+
+

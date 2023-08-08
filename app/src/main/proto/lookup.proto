@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service LookupService {
+  rpc lookup(LookupRequest) returns (LookupResponse) {}
+}
+
+message LookupRequest {
+  string key = 1;
+}
+
+message LookupResponse {
+  string key = 1;
+  string value = 2;
+}
