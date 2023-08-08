@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.protobuf.services.ProtoReflectionService;
 
 public class LookupServer {
     private static final int PORT = 50051;
@@ -12,6 +13,7 @@ public class LookupServer {
     public void start() throws IOException {
         server = ServerBuilder.forPort(PORT)
                 .addService(new LookupServiceImpl())
+                .addService(ProtoReflectionService.newInstance())
                 .build()
                 .start();
     }
