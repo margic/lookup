@@ -1,6 +1,7 @@
 package com.margic.lookup;
 
 
+import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
@@ -15,6 +16,7 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Produced;
 
+import io.grpc.ServerBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -45,6 +47,9 @@ public class App {
                 gen.produce();
             } else {
                 log.info("Running in service mode");
+                LookupServer server = new LookupServer();
+                server.start();
+                server.blockUntilShutdown();
             }
         } catch (Exception exp) {
             log.error("Unexpected exception", exp);
@@ -60,6 +65,3 @@ public class App {
         return builder.build();
     }
 }
-
-
-

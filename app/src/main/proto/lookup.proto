@@ -1,5 +1,5 @@
 syntax = "proto3";
-
+option java_package = "com.margic.lookup.proto";
 service LookupService {
   rpc lookup(LookupRequest) returns (LookupResponse) {}
 }
