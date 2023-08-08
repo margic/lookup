@@ -38,9 +38,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
+    implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
+
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-
 }
 
 protobuf {
