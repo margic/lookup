@@ -9,8 +9,10 @@ import io.grpc.protobuf.services.ProtoReflectionService;
 
 public class LookupServer {
     private final int port;
+    private final Properties props;
 
     public LookupServer(Properties props){
+        this.props = props;
         port = Integer.parseInt(props.getProperty("grpc.port"));
     }
 
@@ -18,7 +20,7 @@ public class LookupServer {
 
     public void start() throws IOException {
         server = ServerBuilder.forPort(port)
-                .addService(new LookupServiceImpl())
+                .addService(new LookupServiceImpl(props))
                 .addService(ProtoReflectionService.newInstance())
                 .build()
                 .start();

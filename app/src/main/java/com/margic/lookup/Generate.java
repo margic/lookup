@@ -20,7 +20,8 @@ public class Generate {
 
   public void produce(){
     Producer<String, String> producer = new KafkaProducer<>(props);
-    producer.send(new ProducerRecord("lookup", "key", "value"));
+    String topic = props.getProperty("topic");
+    producer.send(new ProducerRecord(topic, "key", "value"));
     producer.close();
   }
 }
