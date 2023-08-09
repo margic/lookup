@@ -13,8 +13,7 @@ public class LookupServiceImpl extends LookupServiceGrpc.LookupServiceImplBase {
     public void lookup(
             Lookup.LookupRequest request,
             StreamObserver<Lookup.LookupResponse> responseObserver) {
-        log.info(
-                "Handling lookup endpoint: {}", request.toString());
+        // log.info("Handling lookup endpoint: {}", request.toString());
 
 
         String text = request.getKey() + " World";
