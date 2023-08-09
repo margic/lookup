@@ -10,7 +10,24 @@
       "request": "launch",
       "mainClass": "com.margic.lookup.App",
       "projectName": "app",
+      "args": 
+      [
+          "--mode",
+          "server"
+      ],
     },   
+    {
+      "type": "java",
+      "name": "App Client",
+      "request": "launch",
+      "mainClass": "com.margic.lookup.App",
+      "projectName": "app",
+      "args": 
+      [
+          "--mode",
+          "client"
+      ], 
+    },
     {
       "type": "java",
       "name": "App Generate",
@@ -19,8 +36,8 @@
       "projectName": "app",
       "args": 
       [
-          "--generate",
-          "100"
+          "--mode",
+          "generate"
       ], 
     }
   ]
