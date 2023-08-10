@@ -45,6 +45,12 @@ public class App {
                 switch (mode) {
                     case "client":
                         log.info("Running in client mode");
+                       if (cli.hasOption("s")){
+                            props.setProperty("start", cli.getOptionValue("s"));
+                        }
+                        if (cli.hasOption("c")){
+                            props.setProperty("count", cli.getOptionValue("c"));
+                        }
                         client(props);
                         break;
                 

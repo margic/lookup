@@ -15,10 +15,18 @@ import lombok.extern.slf4j.Slf4j;
 public class LookupClient {
   private final String grpcHost;
   private final int grpcPort;
+  private int start = 1;
+  private int count = 1;
 
   public LookupClient(Properties props) {
     this.grpcHost = props.getProperty("grpc.host");
     this.grpcPort = Integer.parseInt(props.getProperty("grpc.port"));
+    if (props.getProperty("start") != null){
+      this.start = Integer.parseInt(props.getProperty("start"));
+    }
+    if (props.getProperty("count") != null){
+      this.count = Integer.parseInt(props.getProperty("count"));
+    }
   }
 
   public void run() throws Exception {
@@ -29,7 +37,8 @@ public class LookupClient {
         .build();
     LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
 
-    for (int i = 1; i < 11; i++) {
+    int end = start + count;
+    for (int i = start; i < end; i++) {
 
       long before = System.currentTimeMillis();
       LookupResponse response = stub.lookup(LookupRequest.newBuilder().setKey(Integer.toString(i)).build());
