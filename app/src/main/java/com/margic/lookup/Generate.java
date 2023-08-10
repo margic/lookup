@@ -12,15 +12,29 @@ import lombok.extern.slf4j.Slf4j;
 public class Generate {
 
   private final Properties props;
+  private int start = 1;
+  private int count = 1;
 
   public Generate(Properties props){
     log.info("creating new producer");
     this.props = props;
+    if (this.props.getProperty("start") != null){
+      this.start = Integer.parseInt(this.props.getProperty("start"));
+    }
+    if (this.props.getProperty("count") != null){
+      this.start = Integer.parseInt(this.props.getProperty("count"));
+    }
+    
   }
 
   public void produce(){
     Producer<String, String> producer = new KafkaProducer<>(props);
-    producer.send(new ProducerRecord("lookup", "key", "value"));
+    int end = start + count;
+    ProducerRecord<String, String> record;
+    for (int i = start; i < end; i++){
+      record = new ProducerRecord<String,String>(props.getProperty("topic"), Integer.toString(i), "Value" + i);
+      producer.send(record);
+    }
     producer.close();
   }
 }

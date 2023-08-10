@@ -28,7 +28,9 @@ public class App {
         // create the Options
         Options options = new Options();
         options.addOption("m", "mode", true, "set the launch mode of the app; client server or generator");
-    
+        options.addOption("s", "startkey", true, "start of key range");
+        options.addOption("c", "count", true, "count");
+
         try {
             // parse the command line arguments
             CommandLine cli = parser.parse(options, args);
@@ -47,11 +49,18 @@ public class App {
                 
                     case "generate":
                         log.info("Running in generate mode");
+                        // add the start and count args to the props for the generate function
+                        if (cli.hasOption("s")){
+                            props.setProperty("start", cli.getOptionValue("s"));
+                        }
+                        if (cli.hasOption("c")){
+                            props.setProperty("count", cli.getOptionValue("c"));
+                        }
                         generate(props);
                         break;
 
                     case "server":                        
-                        log.info("Running in service mode");
+                        log.info("Running in server mode");
                         serve(props);
                         break;
                     
