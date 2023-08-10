@@ -28,7 +28,7 @@ public class App {
         // create the Options
         Options options = new Options();
         options.addOption("m", "mode", true, "set the launch mode of the app; client server or generator");
-        options.addOption("s", "startkey", true, "start of key range");
+        options.addOption("s", "start", true, "start of key range");
         options.addOption("c", "count", true, "count");
 
         try {

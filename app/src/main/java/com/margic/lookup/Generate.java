@@ -22,7 +22,7 @@ public class Generate {
       this.start = Integer.parseInt(this.props.getProperty("start"));
     }
     if (this.props.getProperty("count") != null){
-      this.start = Integer.parseInt(this.props.getProperty("count"));
+      this.count = Integer.parseInt(this.props.getProperty("count"));
     }
     
   }
@@ -32,7 +32,8 @@ public class Generate {
     int end = start + count;
     ProducerRecord<String, String> record;
     for (int i = start; i < end; i++){
-      record = new ProducerRecord<String,String>(props.getProperty("topic"), Integer.toString(i), "Value" + i);
+      record = new ProducerRecord<String,String>(props.getProperty("topic"), Integer.toString(i), "Value " + i);
+      log.info("producing {}", record);
       producer.send(record);
     }
     producer.close();
