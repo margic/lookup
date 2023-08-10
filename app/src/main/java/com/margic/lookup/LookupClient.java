@@ -29,10 +29,10 @@ public class LookupClient {
         .build();
     LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 1; i < 11; i++) {
 
       long before = System.currentTimeMillis();
-      LookupResponse response = stub.lookup(LookupRequest.newBuilder().setKey("key").build());
+      LookupResponse response = stub.lookup(LookupRequest.newBuilder().setKey(Integer.toString(i)).build());
 
       log.info("response from service {}, time: {}", response, System.currentTimeMillis() - before);
     }
