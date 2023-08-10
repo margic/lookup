@@ -6,7 +6,7 @@
   "configurations": [
     {
       "type": "java",
-      "name": "App Serve",
+      "name": "App Server",
       "request": "launch",
       "mainClass": "com.margic.lookup.App",
       "projectName": "app",
