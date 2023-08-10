@@ -30,6 +30,7 @@ public class App {
         options.addOption("m", "mode", true, "set the launch mode of the app; client server or generator");
         options.addOption("s", "start", true, "start of key range");
         options.addOption("c", "count", true, "count");
+        options.addOption("u", "update", true, "value used to indicate which update this is to show updating of records is possible");
 
         try {
             // parse the command line arguments
@@ -56,6 +57,10 @@ public class App {
                         if (cli.hasOption("c")){
                             props.setProperty("count", cli.getOptionValue("c"));
                         }
+                        if (cli.hasOption("u")){
+                            props.setProperty("update", cli.getOptionValue("u"));
+                        }
+                        
                         generate(props);
                         break;
 

@@ -14,6 +14,7 @@ public class Generate {
   private final Properties props;
   private int start = 1;
   private int count = 1;
+  private String update;
 
   public Generate(Properties props){
     log.info("creating new producer");
@@ -24,7 +25,9 @@ public class Generate {
     if (this.props.getProperty("count") != null){
       this.count = Integer.parseInt(this.props.getProperty("count"));
     }
-    
+    if (this.props.getProperty("update") != null){
+      this.update = this.props.getProperty("update");
+    }
   }
 
   public void produce(){
@@ -32,8 +35,8 @@ public class Generate {
     int end = start + count;
     ProducerRecord<String, String> record;
     for (int i = start; i < end; i++){
-      record = new ProducerRecord<String,String>(props.getProperty("topic"), Integer.toString(i), "Value " + i);
-      log.info("producing {}", record);
+      record = new ProducerRecord<String,String>(props.getProperty("topic"), Integer.toString(i), "Value: " + i + " update: " + update);
+      // log.info("producing {}", record);
       producer.send(record);
     }
     producer.close();
